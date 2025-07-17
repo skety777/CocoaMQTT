@@ -398,38 +398,7 @@ extension CocoaMQTTWebSocket.FoundationConnection: URLSessionWebSocketDelegate {
     }
 }
 
-// MARK: - CocoaMQTTWebSocket.StarscreamConnection
 
-public extension CocoaMQTTWebSocket {
-    class StarscreamConnection: NSObject, CocoaMQTTWebSocketConnection {
-        public var reference: WebSocket
-        public weak var delegate: CocoaMQTTWebSocketConnectionDelegate?
-        public var queue: DispatchQueue {
-            get { reference.callbackQueue }
-            set { reference.callbackQueue = newValue }
-        }
-        
-        public init(request: URLRequest) {
-            reference = WebSocket(request: request)
-            super.init()
-            reference.delegate = self
-        }
-        
-        public func connect() {
-            reference.connect()
-        }
-        
-        public func disconnect() {
-            reference.disconnect()
-        }
-        
-        public func write(data: Data, handler: @escaping (Error?) -> Void) {
-            reference.write(data: data) {
-                handler(nil)
-            }
-        }
-    }
-}
 
 
 
